@@ -1,0 +1,428 @@
+/* =======================
+   플로팅버튼
+======================= */
+.floating-btn {
+  position: fixed;
+  bottom: 3rem;
+  right: 4rem;
+  z-index: 999;
+  background-color: #0B1E3B;
+  color: #fff;
+  padding: 0.7rem 1.6rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease;
+  animation: floatWiggle 3s ease-in-out infinite;
+}
+
+.floating-btn:hover {
+  background-color: #132f57;
+}
+
+@keyframes floatWiggle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@media (max-width: 960px) {
+  .floating-btn {
+    bottom: 4rem;
+    right: 2rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+}
+
+
+/* =======================
+   HEADER (헤더 스타일)
+======================= */
+
+/* 헤더가 메인 콘텐츠를 가리지 않도록 여백 확보 */
+.main-section {
+  padding-top: 100px;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  margin-right: 2rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* ── 드롭다운 기본 스타일 ─────────────────────────── */
+.main-nav ul { position: relative; }
+.main-nav li { position: relative; }
+
+/* ▼ 기본 상태 (드롭다운 닫힘) */
+.submenu > .dropdown {
+  display: none;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.submenu > .submenu-toggle {
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.1rem;   /* .main-nav a 와 동일 */
+  font-weight: 500;    /* .main-nav a 와 동일 */
+  color: #333;         /* .main-nav a 와 동일 */
+}
+
+
+.submenu > .submenu-toggle:after {
+  content: "▾";
+  margin-left: 6px;
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+/* ── 개선된 드롭다운 스타일 ─────────────────────────── */
+.submenu .dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  list-style: none;
+  padding: 8px 0;       /* 안쪽 여백으로만 공간 확보 */
+  margin: 0;            /* 바깥 여백 제거 (gap 문제 해결) */
+  display: none;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.25s ease;
+}
+
+
+.submenu:hover .dropdown,
+.submenu:focus-within .dropdown,
+.submenu.open .dropdown {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ▼ 모바일에서 submenu.open 되면 드롭다운 표시 */
+.submenu.open > .dropdown {
+  display: block;
+  max-height: 500px; /* 드롭다운 높이에 맞춰 조정 */
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 드롭다운 항목 */
+.submenu .dropdown li a {
+  display: block;
+  padding: 12px 18px;              /* 버튼처럼 넉넉한 간격 */
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* hover 시 차분한 효과 */
+.submenu .dropdown li a:hover {
+  background: #f6f6f6;             /* 은은한 회색 배경 */
+  color: #333;                     /* 글자색 유지 */
+  border-radius: 4px;
+}
+
+
+/* 키보드 접근 & 포커스 열림 */
+.submenu:focus-within > .dropdown { display: block; }
+
+/* 데스크탑: 호버 시 열림 (마우스 환경에서만) */
+@media (hover: hover) and (pointer: fine) {
+  .submenu:hover > .dropdown { display: block; }
+}
+
+/* ── 모바일(메뉴 펼침 상태)에서의 드롭다운 ─────────── */
+@media (max-width: 960px) {
+  .main-nav { width: 100%; }
+  .main-nav ul { display: block; }
+  .main-nav li { position: static; }
+
+  /* 햄버거로 메뉴가 열린 상태에서 드롭다운은 block 전환 */
+  .main-nav.active .submenu .dropdown {
+    position: static;
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+  }
+
+  /* .open 클래스일 때만 보이도록 (접이식) */
+/* 드롭다운이 메뉴 토글보다 위에 오도록 */
+.main-nav.active .submenu.open .dropdown { z-index: 2000; }
+.menu-toggle { z-index: 1500; }
+
+  /* 토글 버튼 터치 타겟 확대 */
+  .submenu > .submenu-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 10px 0;
+  }
+}
+/* 드롭다운이 항상 다른 요소보다 위로 */
+.main-nav.active .submenu.open .dropdown { z-index: 2000; }
+
+/* 햄버거 버튼은 그 아래 */
+.menu-toggle { z-index: 1500; }
+
+/* ▼ 모바일 전용: 서브메뉴 토글 버튼 보이게 */
+@media (max-width: 960px) {
+  .submenu-toggle {
+    display: inline-block; /* 반드시 보이도록 */
+    cursor: pointer;
+  }
+
+  /* 드롭다운 항목들도 모바일에선 세로로 */
+  .submenu .dropdown li {
+    display: block;
+  }
+  /* ▼ 모바일에서 '평면안내' 클릭 시 드롭다운이 확실히 보이도록 강제 */
+.main-nav.active .submenu.open > .dropdown {
+  display: block !important;
+  position: static !important;
+  opacity: 1 !important;
+  transform: none !important;
+  background: #fff;           /* 배경 보장 */
+}
+
+}
+
+/* ✅ 전화문의 버튼 스타일 */
+.call-button {
+  display: inline-block;
+  background: linear-gradient(145deg, #0B1E3B, #132f57);
+  color: #ffffff;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(183, 142, 125, 0.3);
+  transition: all 0.3s ease;
+  backdrop-filter: saturate(120%) brightness(105%);
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.call-button strong {
+  font-weight: 700;
+}
+
+.call-button:hover {
+  background: linear-gradient(145deg, #0B1E3B, #132f57);
+  box-shadow: 0 6px 16px rgba(156, 109, 94, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ✅ 데스크탑에서 햄버거 버튼 숨기기 */
+.menu-toggle {
+  display: none;
+}
+
+
+
+/* ✅ 반응형: 960px 이하에서 적용 */
+@media (max-width: 960px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    padding: 1rem;
+    margin-right: 0;
+  }
+
+  .main-nav li {
+    margin-bottom: 0.75rem;
+  }
+
+  /* ✅ 전화문의 버튼을 로고 아래 가운데 정렬로 표시 */
+  .contact-info {
+    order: 2;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  /* ✅ 햄버거 버튼을 오른쪽 상단에 배치 */
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  /* ✅ 네비게이션 메뉴 숨기기 기본 */
+  .main-nav {
+    display: none;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    margin-top: 0.5rem;
+  }
+
+  /* ✅ 햄버거 클릭 시 메뉴 표시 */
+  .main-nav.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+
+/* =======================
+   INDEX MAIN SECTION
+======================= */
+
+
+
+/* =======================
+   FOOTER (푸터 스타일)
+======================= */
+
+.site-footer {
+  background-color: #1a1a1a;
+  color: #eee;
+  padding: 2.5rem 1rem 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  max-width: 1200px;      /* ✅ 하단과 통일 */
+  margin: 0 auto;         /* ✅ 가운데 정렬 */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+
+.footer-left,
+.footer-right {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo img {
+  height: 60px;
+  margin-bottom: 2rem;
+  
+}
+
+.footer-phone {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  color: #fff;
+}
+
+.footer-company p,
+.footer-meta p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.footer-top-align {
+  margin-bottom: 1rem;
+}
+
+.footer-meta {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.footer-meta {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.footer-disclaimer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #444;
+  font-size: 0.75rem;
+  color: #aaa;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@media (max-width: 960px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-meta {
+    text-align: left;
+  }
+}
+
+  .footer-meta {
+    text-align: left;
+  }
+
+  .footer-logo img {
+    height: 48px;
+  }
+

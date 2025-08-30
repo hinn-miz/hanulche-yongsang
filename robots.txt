@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hanulche-yongsang.netlify.app/sitemap.xml

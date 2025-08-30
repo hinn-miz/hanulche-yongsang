@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>안동 용상 하늘채 리버스카이</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <!-- 파비콘 -->
+<!-- Favicon: wide coverage -->
+<link rel="icon" href="/assets/images/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="icon" href="/assets/images/favicon-16.png?v=2" type="image/png" sizes="16x16">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png?v=2" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B1E3B">
+  <style>
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+
+    @media (max-width: 768px) {
+      .desktop-only { display: none; }
+      .mobile-only { display: block; }
+            .info-section .container {padding: 0 !important;}
+    }
+
+    .fade-item {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.2s ease;
+    }
+
+    .fade-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
+    .delay-3 { transition-delay: 0.6s; }
+  </style>
+</head>
+<body>
+  <!-- ✅ 헤더 컴포넌트 -->
+  <div id="header-include"></div>
+
+  <main class="main-section">
+    <section class="info-section" style="padding: 4rem 1.5rem; ">
+     <div class="container" style="max-width: 1200px; margin: auto; display: block; padding: 0 1rem;">
+  <!-- PC용 -->
+  <img src="/assets/images/complex/complex1.png"
+       class="fade-item delay-1 desktop-only"
+       alt="단지배치도"
+       style="width: 100%; border-radius: 12px; margin-bottom: 2rem;" />
+
+  <!-- 모바일용 -->
+  <img src="/assets/images/complex/complex1_m.png"
+       class="fade-item delay-1 mobile-only"
+       alt="단지배치도(모바일)"
+       style="width: 100%; border-radius: 12px; margin-bottom: 2rem;" />
+     </d>
+    </section>
+  </main>
+
+  <!-- ✅ 푸터 컴포넌트 -->
+  <div id="footer-include"></div>
+
+  <!-- ✅ 공통 컴포넌트 + 햄버거 메뉴 JS 삽입 -->
+  <script>
+    async function loadComponent(id, path, callback) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error("Fetch failed");
+        const html = await res.text();
+        document.getElementById(id).innerHTML = html;
+        if (typeof callback === "function") callback();
+      } catch (err) {
+        console.error(`${path} 불러오기 실패:`, err);
+      }
+    }
+
+    function bindMenuToggle() {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", () => {
+          mainNav.classList.toggle("active");
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadComponent("header-include", "/components/header.html", bindMenuToggle);
+      loadComponent("footer-include", "/components/footer.html");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-item').forEach(el => observer.observe(el));
+    });
+  </script>
+  <!-- ✅ 플로팅 버튼 -->
+<a href="/form.html" class="floating-btn">방문예약</a>
+</body>
+</html>

@@ -1,0 +1,256 @@
+/* =======================
+   플로팅 버튼 (개선 버전)
+======================= */
+.floating-btn {
+  position: fixed;
+  /* 모서리에서 살짝 안쪽으로 */
+  bottom: clamp(70px, 6vh, 48px);
+  right: clamp(80px, 5vw, 40px);
+
+  z-index: 1200; /* 헤더(1100)보다 위 */
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+
+  background-color: #0B1E3B;
+  color: #fff;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px; /* pill 모양 */
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: .02em;
+
+  /* 더 눈에 띄게 */
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.8),   /* 흰색 링 효과 */
+    0 10px 22px rgba(0,0,0,.25);      /* 깊은 그림자 */
+  opacity: .96;
+  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+/* 호버 시 강조 */
+.floating-btn:hover,
+.floating-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,1),
+    0 14px 28px rgba(0,0,0,.3);
+  outline: none;
+}
+
+/* 모바일(≤960px)에서는 더 안쪽 + 살짝 크게 */
+@media (max-width: 960px) {
+  .floating-btn {
+    right: 16px;
+    bottom: 20px;
+    padding: 1rem 1.4rem;
+    font-size: 1.1rem;
+  }
+}
+
+
+
+/* ========== HEADER (정리본) ========== */
+
+/* 메인 콘텐츠 상단 여백(고정 헤더 피하기) */
+.main-section { padding-top: 100px; }
+
+/* 헤더 바 */
+.site-header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  background: #fff; border-bottom: 1px solid #eee; z-index: 1100;
+}
+.header-container {
+  max-width: 1200px; margin: 0 auto; padding: 0.75rem 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* 기본 메뉴 */
+.main-nav { position: relative; }
+.main-nav ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: 1.5rem; margin-right: 2rem;
+}
+.main-nav li { position: relative; }
+.main-nav a { text-decoration: none; color: #333; font-size: 1.1rem; font-weight: 500; }
+
+/* 서브메뉴 토글 버튼(텍스트와 동일 스타일) */
+.submenu > .submenu-toggle {
+  background: none; border: none; font: inherit; padding: 0; cursor: pointer;
+  display: inline-flex; align-items: center; font-size: 1.1rem; font-weight: 500; color: #333;
+}
+.submenu > .submenu-toggle::after { content: "▾"; margin-left: 6px; font-size: .9em; line-height: 1; }
+
+/* 드롭다운: 기본(숨김) */
+.submenu > .dropdown {
+  position: absolute; top: 100%; left: 0; min-width: 160px;
+  background: #fff; border: 1px solid #ddd; border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  list-style: none; padding: 8px 0; margin: 0;
+  display: none; opacity: 0; transform: translateY(10px);
+  transition: all .22s ease; z-index: 1200;
+}
+.submenu > .dropdown li a {
+  display: block; padding: 12px 18px; white-space: nowrap;
+  font-size: 1.1rem; font-weight: 500; color: #333; text-decoration: none;
+  transition: background .18s ease;
+}
+.submenu > .dropdown li a:hover { background: #f6f6f6; border-radius: 4px; }
+
+/* 데스크톱: hover/focus-within으로 표시 */
+@media (hover:hover) and (pointer:fine) {
+  .submenu:hover > .dropdown { display: block; opacity: 1; transform: none; }
+}
+.submenu:focus-within > .dropdown { display: block; opacity: 1; transform: none; }
+
+/* 햄버거 버튼: 데스크톱 숨김 */
+.menu-toggle { display: none; }
+
+/* ===== 모바일(≤960px): 탭해서 열기 ===== */
+@media (max-width: 960px) {
+  /* 레이아웃 */
+  .header-container { flex-direction: column; align-items: center; }
+
+  /* 햄버거 */
+  .menu-toggle {
+    display: block; position: absolute; top: 1rem; right: 1rem;
+    background: none; border: 0; font-size: 1.8rem; cursor: pointer; z-index: 1500;
+  }
+
+  /* 내비게이션 토글 */
+  .main-nav { display: none; width: 100%; background: #fff; border-top: 1px solid #ddd; margin-top: .5rem; }
+  .main-nav.active { display: flex; flex-direction: column; align-items: center; }
+
+  /* 목록 수직 배치 */
+  .main-nav ul { display: block; padding: 1rem; margin-right: 0; }
+  .main-nav li { position: static; margin-bottom: .75rem; }
+
+  /* ▼▼▼ 핵심: 기본은 닫힘 */
+  .submenu > .submenu-toggle { width: 100%; text-align: left; padding: 10px 0; cursor: pointer; }
+  .submenu > .dropdown {
+    position: static; min-width: 0; margin: 0; border: 0; box-shadow: none; padding: 0;
+    display: none; opacity: 1; transform: none;
+  }
+  /* 열림 상태(aria-expanded="true")에서만 표시 */
+  .submenu > .submenu-toggle[aria-expanded="true"] + .dropdown {
+    display: block;
+    margin: 6px 0 10px;
+  }
+  .submenu > .dropdown li a { display: block; padding: 12px 12px; border-radius: 10px; }
+  .submenu > .dropdown li a:hover { background: #f5f7fa; }
+}
+
+
+/* ===== 대표번호 버튼(기존 유지) ===== */
+.call-button{
+  display:inline-block;background:linear-gradient(145deg,#0B1E3B,#132f57);color:#fff;
+  padding:.6rem 1.4rem;border-radius:999px;font-size:1.1rem;font-weight:600;text-decoration:none;
+  box-shadow:0 4px 12px rgba(183,142,125,.3);transition:all .3s ease;backdrop-filter:saturate(120%) brightness(105%);
+  text-align:center;margin-top:.75rem
+}
+.call-button:hover{box-shadow:0 6px 16px rgba(156,109,94,.35);transform:translateY(-2px)}
+
+
+
+
+/* =======================
+   INDEX MAIN SECTION
+======================= */
+
+
+
+/* =======================
+   FOOTER (푸터 스타일)
+======================= */
+
+.site-footer {
+  background-color: #1a1a1a;
+  color: #eee;
+  padding: 2.5rem 1rem 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-container {
+  max-width: 1200px;      /* ✅ 하단과 통일 */
+  margin: 0 auto;         /* ✅ 가운데 정렬 */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+
+.footer-left,
+.footer-right {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo img {
+  height: 60px;
+  margin-bottom: 2rem;
+  
+}
+
+.footer-phone {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  color: #fff;
+}
+
+.footer-company p,
+.footer-meta p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.footer-top-align {
+  margin-bottom: 1rem;
+}
+
+.footer-meta {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.footer-meta {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.footer-disclaimer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #444;
+  font-size: 0.75rem;
+  color: #aaa;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@media (max-width: 960px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-meta {
+    text-align: left;
+  }
+}
+
+  .footer-meta {
+    text-align: left;
+  }
+
+  .footer-logo img {
+    height: 48px;
+  }

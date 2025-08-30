@@ -1,0 +1,387 @@
+jpgpng<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>안동 용상 하늘채 리버스카이</title>
+
+  <!-- SNS 기본 -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="안동 용상 하늘채 리버스카이" />
+  <meta name="twitter:description" content="주거명당 新용상에서 만나는 주거명작 용상 하늘채 리버스카이" />
+  <meta name="twitter:image" content="https://hanulche-yongsang.netlify.app/assets/images/index/og-image.png" />
+
+  <!-- 스타일 및 폰트 -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- 파비콘 -->
+<!-- Favicon: wide coverage -->
+<link rel="icon" href="/assets/images/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="icon" href="/assets/images/favicon-16.png?v=2" type="image/png" sizes="16x16">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png?v=2" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B1E3B">
+
+<!-- 메타태그 -->
+<meta name="description" content="주거명당 新용상에서 만나는 주거명작 용상 하늘채 리버스카이">
+<meta name="keywords" content="주거명당 新용상에서 만나는 주거명작 용상 하늘채 리버스카이">
+<meta name="author" content="안동 용상 하늘채 리버스카이">
+
+<!-- 대표 이미지 -->
+<meta property="og:image" content="https://hanulche-yongsang.netlify.app/assets/images/index/og-image.png" />
+<meta property="og:title" content="안동 용상 하늘채 리버스카이" />
+<meta property="og:description" content="주거명당 新용상에서 만나는 주거명작 용상 하늘채 리버스카이" />
+<meta property="og:url" content="https://hanulche-yongsang.netlify.app//" />
+<meta property="og:type" content="website" />
+
+
+  <style>
+    @font-face {
+      font-family: 'ShillaCultureB';
+      src: url('/assets/fonts/Shilla_Culture(B).ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* ✅ Hero Section 스타일 */
+    .hero {
+      position: relative;
+      height: 90vh;
+      background: url('/assets/images/index/hero.png') no-repeat center center/cover;
+      display: flex;
+      align-items: flex-start;   /* 기존 center → top */
+      justify-content: flex-start; /* 기존 center → left */
+      padding-top: clamp(48px, 12vh, 140px);   /* 위 여백 */
+      padding-left: clamp(16px, 6vw, 80px);    /* 왼 여백 */
+      overflow: hidden;
+      transform: scale(1.05);
+      opacity: 0;
+      transition: all 2s ease;
+    }
+    .hero.visible {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+/* 텍스트를 좌정렬 + 네이비 톤 */
+.hero-inner{
+  text-align: left;
+  max-width: 1100px;
+  width: 90vw;
+  margin: 0 auto;
+  color: #0B1E3B;
+  white-space: normal; /* 줄바꿈 허용 */
+}
+
+    .hero.visible .hero-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.10);
+      z-index: 1;
+    }
+
+/* 상단 작은 카피 (리버뷰의 눈부심) */
+.hero-eyebrow{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: clamp(14px, 2.4vw, 20px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.6rem 0;
+}
+
+/* 메인 타이틀 (RIVER VIEW) – 세리프/대문자/자간 */
+.hero-title{
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(44px, 12vw, 140px);
+  line-height: 0.95;
+  letter-spacing: 0em;   /* 이미지 느낌의 넉넉한 자간 */
+  margin: 0 0 0.8rem 0;
+  color: #182538;           /* 짙은 네이비 */
+}
+
+
+/* 하단 보조 카피 (주거명당 新용상...) */
+.hero-kicker{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: clamp(14px, 2.5vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin: 0;
+  opacity: 0.95;
+}
+
+/* 한자 강조 */
+.hero-kicker .hanja{
+  font-weight: 700;
+}
+
+
+
+/* 3) 모바일 여백 미세 조정 (선택) */
+@media (max-width: 768px){
+  .hero{
+    padding-top: 14vh;
+    padding-left: 5vw;
+  }
+  .hero-inner{ max-width: 92vw; }
+}
+
+    .showcase-fullscreen {
+      width: 100%;
+      padding: 0rem 0rem;
+      box-sizing: border-box;
+    }
+
+    .showcase-image-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0rem;
+      margin-top: 0rem;
+    }
+
+    .showcase-image-wrapper img {
+      display: block;
+      margin: 0 auto;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.2s ease;
+    }
+
+    .fade-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
+    .delay-3 { transition-delay: 0.6s; }
+
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+
+    @media (max-width: 768px) {
+      .desktop-only { display: none; }
+      .mobile-only { display: block; }
+            .info-section .container {padding: 0 !important;}
+    }
+
+    /* ✅ 팝업 레이어 스타일 */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-box {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      padding: 1rem;
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+      animation: popupFade 0.3s ease-out;
+    }
+
+    .popup-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .popup-actions {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    @keyframes popupFade {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- ✅ 헤더 불러오기 -->
+  <div id="header-include"></div>
+
+  <!-- ✅ 메인 콘텐츠 -->
+  <main class="main-section">
+    <section class="hero">
+      <div class="hero-inner">
+  <p class="hero-eyebrow"><strong>리버뷰</strong>의 눈부심</p>
+  <h1 class="hero-title"><strong>RIVER VIEW</strong></h1>
+  <p class="hero-kicker">주거명당 <span class="hanja">新</span>용상에서 만나는 주거명작</p>
+</div>
+
+    </section>
+
+    <section class="showcase-fullscreen">
+      <div class="showcase-image-wrapper desktop-only">
+        <img src="./assets/images/index/showcase1.png" class="fade-item delay-1" alt="포인트1">
+      </div>
+
+      <!-- 데스크탑용 이미지 -->
+      <div class="showcase-image-wrapper desktop-only">
+        <img src="./assets/images/index/showcase2.png" class="fade-item delay-2" alt="포인트2">
+      </div>
+      <div class="showcase-image-wrapper desktop-only">
+        <img src="./assets/images/index/showcase3.png" class="fade-item delay-3" alt="포인트3">
+      </div>
+
+      <!-- 모바일용 이미지 -->
+      <div class="showcase-image-wrapper mobile-only">
+        <img src="./assets/images/index/showcase1_m.png" class="fade-item delay-1" alt="모바일용 포인트1">
+      </div>
+           <div class="showcase-image-wrapper mobile-only">
+        <img src="./assets/images/index/showcase2_m.png" class="fade-item delay-2" alt="모바일용 포인트3">
+      </div>
+          </section>
+  </main>
+
+  <!-- ✅ 푸터 불러오기 -->
+  <div id="footer-include"></div>
+
+  <!-- ✅ 스크립트: 컴포넌트 로딩 및 애니메이션 + 햄버거 메뉴 -->
+  <script>
+    // ✅ 공통 컴포넌트(header/footer/플로팅 버튼) 비동기 로딩
+    async function loadComponent(id, path, callback) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error("Fetch failed");
+        const html = await res.text();
+        document.getElementById(id).innerHTML = html;
+        if (typeof callback === "function") callback();
+      } catch (err) {
+        console.error(`${path} 불러오기 실패:`, err);
+      }
+    }
+
+    // ✅ 햄버거 메뉴 바인딩 함수
+    function bindMenuToggle() {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", () => {
+          mainNav.classList.toggle("active");
+        });
+      }
+    }
+
+    // ✅ 페이지 로드시 실행
+    document.addEventListener("DOMContentLoaded", () => {
+      loadComponent("header-include", "/components/header.html", bindMenuToggle);
+      loadComponent("footer-include", "/components/footer.html");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-item').forEach(el => observer.observe(el));
+
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            heroObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.querySelectorAll('.hero').forEach(el => heroObserver.observe(el));
+    });
+
+function closePopup(popupId, cookieName) {
+  const checkbox = document.querySelector(`#${popupId} input[type="checkbox"]`);
+  if (checkbox && checkbox.checked) {
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 1);
+    document.cookie = `${cookieName}=true; path=/; expires=${expiry.toUTCString()}`;
+  }
+  document.getElementById(popupId).style.display = "none";
+}
+
+function checkPopupCookie(popupId, cookieName) {
+  if (!document.cookie.includes(`${cookieName}=true`)) {
+    document.getElementById(popupId).style.display = "flex";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  checkPopupCookie("popupModal", "hidePopup");
+  checkPopupCookie("popupModal2", "hidePopup2"); // ✅ 두 번째 팝업도 체크
+});
+  </script>
+  <!-- ✅ 플로팅 버튼 -->
+<a href="/form.html" class="floating-btn">방문예약</a>
+
+<!-- 모달 팝업 -->
+<!-- ✅ 팝업 1 -->
+<div class="popup-overlay" id="popupModal" style="display: none;">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popupModal', 'hidePopup1', 'hideToday')">✕</button>
+    <a href="/form.html">
+      <img src="./assets/images/popup-banner.png" alt="팝업 이미지" class="popup-image">
+    </a>
+    <div class="popup-actions">
+      <label><input type="checkbox" id="hideToday" /> 오늘 하루 보지 않기</label>
+      <button onclick="closePopup('popupModal', 'hidePopup1', 'hideToday')">닫기</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ✅ 팝업 2 -->
+<div class="popup-overlay" id="popupModal2" style="display: none;">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('popupModal2', 'hidePopup2', 'hideToday2')">✕</button>
+    <a href="/form.html">
+      <img src="./assets/images/popup-banner2.png" alt="팝업 이미지2" class="popup-image">
+    </a>
+    <div class="popup-actions">
+      <label><input type="checkbox" id="hideToday2" /> 오늘 하루 보지 않기</label>
+      <button onclick="closePopup('popupModal2', 'hidePopup2', 'hideToday2')">닫기</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

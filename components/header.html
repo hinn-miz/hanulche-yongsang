@@ -1,0 +1,135 @@
+<header class="site-header">
+  <div class="header-container">
+    <!-- 로고 -->
+    <div class="logo">
+      <a href="/">
+        <img src="/assets/images/logo_color.png" alt="안동 용상 하늘채 리버스카이" style="height:36px;width:auto;max-width:100%;" />
+      </a>
+    </div>
+
+    <!-- 내비게이션 -->
+    <nav class="main-nav" id="mainNav" aria-label="주요 메뉴">
+  <ul>
+    <!-- 사업안내 -->
+    <li class="submenu">
+      <button type="button" class="submenu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="aboutDropdown">
+        <strong>사업안내</strong>
+      </button>
+      <ul class="dropdown" id="aboutDropdown" role="menu" aria-label="사업안내 하위메뉴">
+        <li><a href="/about.html" role="menuitem">사업개요</a></li>
+        <li><a href="/location.html" role="menuitem">입지환경</a></li>
+        <li><a href="/premium.html" role="menuitem">프리미엄 6</a></li>
+      </ul>
+    </li>
+
+    <!-- 단지안내 -->
+    <li class="submenu">
+      <button type="button" class="submenu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="complexDropdown">
+        <strong>단지안내</strong>
+      </button>
+      <ul class="dropdown" id="complexDropdown" role="menu" aria-label="단지안내 하위메뉴">
+        <li><a href="/complex.html" role="menuitem">단지배치도</a></li>
+        <li><a href="/dongho.html" role="menuitem">동호수배치도</a></li>
+        <li><a href="/community.html" role="menuitem">커뮤니티</a></li>
+      </ul>
+    </li>
+
+    <!-- 세대안내 -->
+    <li class="submenu">
+      <button type="button" class="submenu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="unitDropdown">
+        <strong>세대안내</strong>
+      </button>
+      <ul class="dropdown" id="unitDropdown" role="menu" aria-label="세대안내 하위메뉴">
+        <li><a href="/types.html" role="menuitem">평면안내</a></li>
+        <li>
+           <a href="https://elypecs.com/platform/ES0270/index.html"
+             target="_blank"
+             rel="noopener noreferrer"
+             role="menuitem">
+    e 모델하우스
+  </a>
+</li>
+        <li><a href="/preview.html" role="menuitem">인테리어</a></li>
+      </ul>
+    </li>
+
+    <!-- 문의하기 (단일메뉴) -->
+    <li><a href="/form.html"><strong>문의하기</strong></a></li>
+  </ul>
+</nav>
+
+
+    <!-- 대표번호 -->
+    <div class="contact-info" style="display:flex; align-items:center; gap:10px;">
+    <span style="font-size:14px; color:#444;">선착순 동호지정 </br>방문전 예약필수</span>
+    <a href="tel:16666093" class="call-button"><strong>1666-6093</strong></a>
+</div>
+
+
+    <!-- 햄버거 -->
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-controls="mainNav" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var menuToggle = document.getElementById("menuToggle");
+  var mainNav = document.getElementById("mainNav");
+  if (!menuToggle || !mainNav) return;
+
+  // 햄버거 토글
+  menuToggle.addEventListener("click", function () {
+    var willOpen = !mainNav.classList.contains("active");
+    mainNav.classList.toggle("active");
+    menuToggle.setAttribute("aria-expanded", String(willOpen));
+  });
+
+  // 모바일 서브메뉴: 탭해서 열기 (aria-expanded 토글)
+  var toggles = Array.prototype.slice.call(document.querySelectorAll(".submenu > .submenu-toggle"));
+
+  function closeAllSubmenus(exceptBtn) {
+    toggles.forEach(function(btn){
+      if (btn !== exceptBtn) btn.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  toggles.forEach(function(btn){
+    // 초기값 보장
+    if (!btn.hasAttribute("aria-expanded")) btn.setAttribute("aria-expanded", "false");
+
+    btn.addEventListener("click", function (e) {
+      // 모바일에서만 탭 동작 (960px 이하 & 내비 열림 상태)
+      var isMobile = window.matchMedia("(max-width: 960px)").matches;
+      if (!isMobile || !mainNav.classList.contains("active")) return;
+
+      var current = btn.getAttribute("aria-expanded") === "true";
+      closeAllSubmenus(btn);
+      btn.setAttribute("aria-expanded", String(!current));
+      e.stopPropagation();
+    });
+  });
+
+  // 내비 영역 밖 클릭 시 닫기 (모바일)
+  document.addEventListener("click", function (e) {
+    var isMobile = window.matchMedia("(max-width: 960px)").matches;
+    if (!isMobile || !mainNav.classList.contains("active")) return;
+    if (!mainNav.contains(e.target) && e.target !== menuToggle) {
+      // 전체 닫기
+      closeAllSubmenus(null);
+      mainNav.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // 리사이즈 시 상태 정리
+  window.addEventListener("resize", function(){
+    var isMobile = window.matchMedia("(max-width: 960px)").matches;
+    if (!isMobile) {
+      // 데스크톱으로 넘어오면 모바일 전용 상태 초기화
+      closeAllSubmenus(null);
+      mainNav.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+});
+</script>

@@ -1,0 +1,142 @@
+<header class="site-header">
+  <div class="header-container">
+
+    <!-- ✅ 로고 이미지 -->
+    <div class="logo">
+      <a href="/">
+        <img src="/assets/images/logo_color.png" alt="안동 용상 하늘채 리버스카이" style="height: 45px; width: auto; max-width: 100%;" />
+      </a>
+    </div>
+
+    <!-- ✅ 네비게이션 메뉴 -->
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="/about.html"><strong>사업개요</strong></a></li>
+        <li><a href="/premium.html"><strong>프리미엄</strong></a></li>
+        <li><a href="/location.html"><strong>입지안내</strong></a></li>
+        <li><a href="/complex.html"><strong>단지안내</strong></a></li>
+
+
+<li class="submenu">
+  <button
+    type="button"
+    class="submenu-toggle"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="typesDropdown"
+  ><strong>평면안내</strong></button>
+
+  <ul class="dropdown" id="typesDropdown">
+    <li><a href="/types-block1.html">1블럭</a></li>
+    <li><a href="/types-block2.html">2블럭</a></li>
+  </ul>
+</li>
+
+        <li><a href="/preview.html"><strong>인테리어</strong></a></li>
+        <li><a href="/form.html"><strong>문의하기</strong></a></li>
+      </ul>
+    </nav>
+
+    <!-- ✅ 대표번호 -->
+    <div class="contact-info">
+      <a href="tel:16666093" class="call-button">
+        <strong>1666-6093</strong>
+      </a>
+    </div>
+
+    <!-- ✅ 햄버거 버튼 (모바일용) -->
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+    
+    
+  </div>
+</header>
+
+<!-- ✅ 메뉴 토글 스크립트: header.html 내에서 직접 실행 -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menuToggle");
+  const mainNav = document.getElementById("mainNav");
+
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener("click", () => {
+      mainNav.classList.toggle("active");
+    });
+  }
+
+  // ▼ 드롭다운 토글 (모바일 전용) — 터치 이벤트 보강
+  document.querySelectorAll(".submenu").forEach((submenu) => {
+    const toggle = submenu.querySelector(".submenu-toggle");
+    if (!toggle) return;
+
+    const handler = (e) => {
+      const isMobileMenu = mainNav.classList.contains("active");
+      if (!isMobileMenu) return;               // PC에선 hover로 처리
+      e.preventDefault();
+      e.stopPropagation();                     // 외부 핸들러와 충돌 방지
+      const isOpen = submenu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    // iOS/안드로이드 이슈 대비: click + touchend + pointerup
+    ["click","touchend","pointerup"].forEach(evt => {
+      toggle.addEventListener(evt, handler, { passive: false });
+    });
+  });
+});
+</script>
+<script>
+(function(){
+  if (window.__HEADER_FORCE_FIX__) return;
+  window.__HEADER_FORCE_FIX__ = true;
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var menuToggle = document.getElementById("menuToggle");
+    var mainNav = document.getElementById("mainNav");
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener("click", function(){
+        var willOpen = !mainNav.classList.contains("active");
+        mainNav.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", String(willOpen));
+        if (!willOpen) {
+          document.querySelectorAll(".submenu.open").forEach(function(s){ s.classList.remove("open"); });
+          document.querySelectorAll(".submenu-toggle[aria-expanded='true']").forEach(function(t){ t.setAttribute("aria-expanded","false"); });
+          document.querySelectorAll(".submenu > .dropdown").forEach(function(d){ d.style.display = ""; });
+        }
+      });
+    }
+
+    // Strongest: inline display toggle to bypass CSS conflicts
+    var evt = "click"; // keep it simple and reliable
+    document.querySelectorAll(".submenu").forEach(function(submenu){
+      var toggle = submenu.querySelector(".submenu-toggle");
+      var dropdown = submenu.querySelector(".dropdown");
+      if (!toggle || !dropdown) return;
+
+      toggle.addEventListener(evt, function(e){
+        // act only when mobile menu open
+        if (!mainNav || !mainNav.classList.contains("active")) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // close others
+        document.querySelectorAll(".submenu.open").forEach(function(s){
+          if (s !== submenu) {
+            s.classList.remove("open");
+            var dd = s.querySelector(".dropdown");
+            if (dd) dd.style.display = "";
+            var tg = s.querySelector(".submenu-toggle");
+            if (tg) tg.setAttribute("aria-expanded","false");
+          }
+        });
+
+        var isOpen = submenu.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        // inline style wins
+        dropdown.style.display = isOpen ? "block" : "";
+      }, { passive: false });
+    });
+  });
+})();
+</script>
